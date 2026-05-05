@@ -40,14 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'allauth.socialaccount.providers.google',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
-    "rest_framework.authtoken",
     'rest_framework_simplejwt',
     'corsheaders',
     'rest_framework',
@@ -61,7 +53,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -162,10 +153,7 @@ SIMPLE_JWT = {
     "ALGORITHM": "HS512",
 }
 
-SITE_ID = 1
 
-ACCOUNT_EMAIL_REQUIED = False
-ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 if DEBUG:
@@ -177,20 +165,3 @@ else:
     ]
 
 
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "APP": {
-            "client_id": os.getenv('CLIENT_ID'),  
-            "secret": os.getenv('SECRET_CLIENT'),       
-            "key": "",                              
-        },
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
-        "AUTH_PARAMS": {
-            "access_type": "online",
-        },
-        "VERIFIED_EMAIL": True,
-    },
-}
