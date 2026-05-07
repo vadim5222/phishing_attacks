@@ -8,7 +8,17 @@ const AxiosRequest = axios.create({
     headers: {
         'Content-Type':'application/json',
         accept: 'application/json'
-    }
+    },
+    
 })
+
+AxiosRequest.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token')
+    if (token){
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
 
 export default AxiosRequest

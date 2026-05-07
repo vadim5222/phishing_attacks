@@ -12,6 +12,8 @@ const RegisterForm = () => {
             email: data.email,
             password: data.password
         })
+        .then(data => data.json())
+        .catch(error => console.log(error))
     }
 
     return(
