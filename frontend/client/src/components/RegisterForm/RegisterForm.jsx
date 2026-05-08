@@ -1,29 +1,32 @@
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import AxiosRequest from '../AxiosRequest'
 
 
 const RegisterForm = () => {
 
-    const {register, handleSubmit} = useForm()
+    const { register, handleSubmit } = useForm()
 
     const onRegister = (data) => {
-        AxiosRequest.post('accounts/register/', {
-            username: data.username,
-            email: data.email,
-            password: data.password
-        })
-        .then(data => data.json())
-        .catch(error => console.log(error))
+        try {
+            AxiosRequest.post('accounts/register/', {
+                username: data.username,
+                email: data.email,
+                password: data.password
+            })
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
-    return(
+    return (
         <>
-        <form onSubmit={handleSubmit(onRegister)}>
-            <input type="text" {...register('username')}/>
-            <input type="email" {...register('email')}/>
-            <input type="password" {...register('password')}/>
-            <button type='submit'>Зарегистрироваться</button>
-        </form>
+            <form onSubmit={handleSubmit(onRegister)}>
+                <input type="text" {...register('username')} />
+                <input type="email" {...register('email')} />
+                <input type="password" {...register('password')} />
+                <button type='submit'>Зарегистрироваться</button>
+            </form>
         </>
     )
 }

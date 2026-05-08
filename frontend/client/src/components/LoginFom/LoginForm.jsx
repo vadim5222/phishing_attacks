@@ -20,9 +20,6 @@ const LoginForm = () => {
         }
     }
 
-
-
-
     return (
         <form onSubmit={handleSubmit(onLogin)}>
             <input type="text" {...register('username')} />
