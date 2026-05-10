@@ -26,7 +26,7 @@ class LoginAPIView(APIView):
                 value=access,
                 httponly=True,
                 secure=not settings.DEBUG,
-                samesite='Strict',
+                samesite='Lax',
                 max_age=15 * 60,
                 path='/'
             )
@@ -36,7 +36,7 @@ class LoginAPIView(APIView):
                 value=refresh,
                 httponly=True,
                 secure=not settings.DEBUG,
-                samesite='Strict',
+                samesite='Lax',
                 max_age=24 * 60 * 60,
                 path='/'
             )

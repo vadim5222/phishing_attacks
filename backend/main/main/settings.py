@@ -133,7 +133,7 @@ AUTH_USER_MODEL = 'app.Users'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "app.authentication.CookieJWTAuthentication",
     ]
 }
 

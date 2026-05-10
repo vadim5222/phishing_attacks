@@ -10,10 +10,9 @@ const LoginForm = () => {
             const response = await AxiosRequest.post('accounts/login/', {
                 username: data.username,
                 password: data.password
+            }, {
+                withCredentials: true
             })
-            console.log(response.data)
-            localStorage.setItem('access', response.data.access)
-            localStorage.setItem('username', data.username)
             navigate('/')
         } catch (e) {
             console.log(e)
