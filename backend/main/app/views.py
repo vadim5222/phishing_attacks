@@ -7,6 +7,7 @@ from .models import Users
 from .serializer import UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 
@@ -46,6 +47,7 @@ class LoginAPIView(APIView):
 
 
 class RegisterAPIView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
     def post(self, request):
         serializer = UserSerializer(data = request.data)
         if serializer.is_valid():
@@ -57,11 +59,9 @@ class RegisterAPIView(APIView):
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        user = request.user
-        return Response({
-            'username': user.username,
-            'email': user.email
-        })
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
 
 
 class LogoutView(APIView):
