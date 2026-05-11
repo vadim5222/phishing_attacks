@@ -20,7 +20,7 @@ const Navbar = () => {
             const response = await AxiosRequest.post('accounts/logout/', {}, {
                 withCredentials: true
             })
-            setUser(null)
+            .then(res =>setUser(null))
             navigate('/')
         } catch (e) {
             console.log(e)
@@ -45,7 +45,7 @@ const Navbar = () => {
     return (
 
         <>
-            <header className="bg-cyan-950">
+            <header className="bg-cyan-950 rounded-b-lg mb-8">
                 <div className="p-8">
                     <div className="w-1/2 flex justify-center">
                         {user ?

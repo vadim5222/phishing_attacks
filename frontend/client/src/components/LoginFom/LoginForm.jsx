@@ -23,7 +23,7 @@ const LoginForm = () => {
     return (
         <div>
             <div>
-                <form className=' p-4 md:p-6 lg:p-8 bg-cyan-900 w-full rounded-xl' onSubmit={handleSubmit(onLogin)}>
+                <form className=' p-4 md:p-6 lg:p-8 bg-cyan-950 w-full rounded-xl' onSubmit={handleSubmit(onLogin)}>
                     <label for='username'>username</label>
                     <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="text" {...register('username')} />
                     <label for='password'>password</label>
