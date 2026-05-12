@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import AxiosRequest from '../components/AxiosRequest'
 import Navbar from '../components/Navbar/Navbar'
-import RegisterForm from '../components/RegisterForm/RegisterForm'
+import UserProfileUpdateForm from '../components/UserProfilleUpdateForm/UserProfileUpdateForm'
 
 const Profile = () => {
 
@@ -46,7 +46,7 @@ const Profile = () => {
                         </button>
                     </div>
                 </div>
-                {edit && <RegisterForm />}
+                {edit && <UserProfileUpdateForm userId={user.id}/>}
 
 
                 <div className='flex items-center justify-center'>

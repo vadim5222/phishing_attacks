@@ -7,7 +7,7 @@ import { useState } from 'react'
 const RegisterForm = () => {
 
     const { register, handleSubmit } = useForm()
-    const [seletedImage, setSelectedImage] = useState(null)
+    const [selectedImage, setSelectedImage] = useState(null)
 
     const onRegister = async (data) => {
         try {
@@ -16,7 +16,7 @@ const RegisterForm = () => {
             formData.append('username',data.username)
             formData.append('email',data.email)
             formData.append('password',data.password)
-            formData.append('image', seletedImage)
+            formData.append('image', selectedImage)
             const response = await AxiosRequest.post('accounts/register/', 
                 formData
             )

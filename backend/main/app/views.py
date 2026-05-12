@@ -74,6 +74,7 @@ class LogoutView(APIView):
 
 class UserUpdateView(APIView):
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
     def put(self, request, pk):
         user = Users.objects.get(pk=pk)
         serializer = ProfileSerializer(user, data = request.data)
