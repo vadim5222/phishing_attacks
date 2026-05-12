@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from rest_framework import status
 from .models import Users
-from .serializer import UserSerializer
+from .serializer import UserSerializer, ProfileSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -70,3 +70,14 @@ class LogoutView(APIView):
         response.delete_cookie('access', path='/')
         response.delete_cookie('refresh', path='/')
         return response
+    
+
+class UserUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
+    def put(self, request, pk):
+        user = Users.objects.get(pk=pk)
+        serializer = ProfileSerializer(user, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

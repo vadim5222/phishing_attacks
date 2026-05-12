@@ -36,14 +36,17 @@ const RegisterForm = () => {
                         <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="text" {...register('username')} />
 
                         <label className='block text-sm font-medium text-blue-300-700 mb-1' htmlFor='email'>email</label>
-                        <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="text" type="email" {...register('email')} />
+                        <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500'  type="email" {...register('email')} />
 
                         <label className='block text-sm font-medium text-blue-300-700 mb-1' htmlFor='password'>password</label>
-                        <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="text" type="password" {...register('password')} />
+                        <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500'  type="password" {...register('password')} />
+                        
                         <label htmlFor="file">Загрузите аватар</label>
                         <input type="file" onChange={(e) => setSelectedImage(e.target.files[0])}/>
+                        
+                        
                         <div className='flex items-center gap-11'>
-                            <button className='w-1/2 my-5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="text" type='submit'>Зарегистрироваться</button>
+                            <button className='w-1/2 my-5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type='submit'>Зарегистрироваться</button>
                             <p className='text-white'>Уже есть аккаунт? <Link className='text-cyan-300' to='/login'>Войти</Link></p>
                         </div>
                     </div>
