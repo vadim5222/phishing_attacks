@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import AxiosRequest from '../components/AxiosRequest'
-import Navbar from '../components/Navbar/Navbar'
+import Header from '../components/Header'
 import UserProfileUpdateForm from '../components/UserProfilleUpdateForm/UserProfileUpdateForm'
 
 const Profile = () => {
@@ -21,8 +21,7 @@ const Profile = () => {
 
     return (
         <>
-            <Navbar />
-
+            <Header />
 
             <div className='container mx-auto'>
                 <div className='flex gap-40 mb-8'>
@@ -41,12 +40,12 @@ const Profile = () => {
                             onClick={() => {
                                 setEdit(!edit)
                             }}
-                            className='border border-cyan-700 p-3 w-80 hover:bg-cyan-900 rounded-xl mt-8'>
-                            Редактировать
+                            className='border border-cyan-700 p-3 w-80 hover:bg-cyan-900 rounded-xl mt-8 mb-8'>
+                            {edit ? 'Отменить редактирование':'Редактировать'}
                         </button>
+                        {edit && <UserProfileUpdateForm userId={user.id} />}
                     </div>
                 </div>
-                {edit && <UserProfileUpdateForm userId={user.id}/>}
 
 
                 <div className='flex items-center justify-center'>

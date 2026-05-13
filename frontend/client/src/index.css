@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
     background-image: url('/unsplash__AjqGGafofE.jpg');
     background-repeat: no-repeat;

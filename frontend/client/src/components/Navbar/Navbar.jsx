@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
-import AxiosRequest from '../../components/AxiosRequest'
+import AxiosRequest from '../AxiosRequest'
 import { useNavigate } from "react-router-dom"
 
-const Navbar = () => {
+const Header = () => {
     const [user, setUser] = useState(null)
     const navigate = useNavigate()
 
@@ -45,7 +45,7 @@ const Navbar = () => {
     return (
 
         <>
-            <header className="bg-cyan-950 rounded-b-lg mb-8">
+            <header className="bg-cyan-950 rounded-b-lg mb-8 backdrop-invert backdrop-opacity-100">
                 <div className="p-8">
                     <div className="w-1/2 flex justify-center">
                         {user ?
@@ -64,4 +64,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Header

@@ -28,7 +28,7 @@ class LoginAPIView(APIView):
                 httponly=True,
                 secure=not settings.DEBUG,
                 samesite='Lax',
-                max_age=15 * 60,
+                max_age=60 * 60,
                 path='/'
             )
 
@@ -75,9 +75,9 @@ class LogoutView(APIView):
 class UserUpdateView(APIView):
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
-    def put(self, request, pk):
+    def patch(self, request, pk):
         user = Users.objects.get(pk=pk)
-        serializer = ProfileSerializer(user, data = request.data)
+        serializer = ProfileSerializer(user, data = request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
