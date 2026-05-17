@@ -31,7 +31,7 @@ const Profile = () => {
                             alt="avatar"
                             className='rounded-xl'
                         />
-                    ) : <img src='/профиль.webp' />}
+                    ) : <img className='rounded-xl' src='/профиль.webp' />}
                     <div>
                         <p className='text-3xl'>{user?.username}</p>
                         <p className='text-3xl'>{user?.email}</p>

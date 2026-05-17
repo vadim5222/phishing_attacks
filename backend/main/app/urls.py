@@ -8,7 +8,8 @@ urlpatterns = [
     path('login/', views.LoginAPIView.as_view(), name='login'),
     path('register/', views.RegisterAPIView.as_view(), name='register'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
-    path('profile/<int:pk>/', views.UserUpdateView.as_view(), name='update')
+    path('profile/<int:pk>/', views.UserUpdateView.as_view(), name='update'),
+    path('check-url/', views.CheckUrlAPIView.as_view(), name='check_url'),
 ]
 
 

@@ -4,11 +4,11 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from rest_framework import status
 from .models import Users
-from .serializer import UserSerializer, ProfileSerializer
+from .serializer import UserSerializer, ProfileSerializer, UrlCheckRequestSerializer, UrlCheckResponseSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser
-
+from ml.dataset.url_model import predict_url
 
 
 class LoginAPIView(APIView):
@@ -82,3 +82,26 @@ class UserUpdateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CheckUrlAPIView(APIView):
+    def post(self, request):
+        serializer = UrlCheckRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        url = serializer.validated_data['url']
+        try:
+            result = predict_url(url)
+        except FileNotFoundError as exc:
+            return Response({'error': str(exc)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as exc:
+            return Response({'error': 'Ошибка при проверке URL: ' + str(exc)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        response_data = {
+            'url': result['raw_url'],
+            'label': 'phishing' if result['label'] == 1 else 'safe',
+            'probability': result['probability'],
+        }
+        response_serializer = UrlCheckResponseSerializer(response_data,data=request.data)
+        response_serializer.is_valid(raise_exception=True)
+        return Response(response_serializer.data)

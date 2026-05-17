@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users
+from .models import Users, UrlCheckResults
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +20,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = ['username', 'email']
+
+
+class UrlCheckRequestSerializer(serializers.Serializer):
+    url = serializers.URLField(required=True)
+
+
+class UrlCheckResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UrlCheckResults
+        fields = '__all__'
