@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Users, UrlCheckResults
+from ml.dataset.url_model import predict_url
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +26,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class UrlCheckRequestSerializer(serializers.Serializer):
     url = serializers.URLField(required=True)
 
-
+    
 class UrlCheckResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = UrlCheckResults

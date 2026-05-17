@@ -7,7 +7,7 @@ class Users(AbstractUser):
 
 
 class UrlCheckResults(models.Model):
-    url = models.CharField(max_length=255)
+    url = models.URLField(max_length=255)
     label = models.CharField(max_length=255)
     probability = models.FloatField()
 

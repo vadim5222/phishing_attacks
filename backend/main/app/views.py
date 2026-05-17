@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from rest_framework import status
 from .models import Users
-from .serializer import UserSerializer, ProfileSerializer, UrlCheckRequestSerializer, UrlCheckResponseSerializer
+from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -102,6 +102,15 @@ class CheckUrlAPIView(APIView):
             'label': 'phishing' if result['label'] == 1 else 'safe',
             'probability': result['probability'],
         }
-        response_serializer = UrlCheckResponseSerializer(response_data,data=request.data)
+        response_serializer = UrlCheckResponseSerializer(data=response_data)
         response_serializer.is_valid(raise_exception=True)
+        response_serializer.save()
         return Response(response_serializer.data)
+
+
+
+        
+    
+
+
+
