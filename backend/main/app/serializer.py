@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Users, UrlCheckResults
-from ml.dataset.url_model import predict_url
+from .models import Users, UrlCheckResults, Review
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,3 +30,9 @@ class UrlCheckResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = UrlCheckResults
         fields = '__all__'
+
+
+class ReviewCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['text', 'score']

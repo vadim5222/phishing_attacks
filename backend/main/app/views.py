@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from rest_framework import status
-from .models import Users
-from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer
+from .models import Users, Review
+from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer, ReviewCreateSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -106,6 +106,21 @@ class CheckUrlAPIView(APIView):
         response_serializer.is_valid(raise_exception=True)
         response_serializer.save()
         return Response(response_serializer.data)
+    
+class ReviewCreateAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        serializer = ReviewCreateSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user = request.user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request):
+        reviews = Review.objects.all()
+        serializer = ReviewCreateSerializer(reviews, many=True)
+        return Response(serializer.data)
+        
 
 
 

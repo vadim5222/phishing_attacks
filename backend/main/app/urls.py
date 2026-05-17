@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('profile/<int:pk>/', views.UserUpdateView.as_view(), name='update'),
     path('check-url/', views.CheckUrlAPIView.as_view(), name='check_url'),
+    path('review/', views.ReviewCreateAPIView.as_view(), name='review')
 ]
 
 

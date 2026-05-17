@@ -3,3 +3,4 @@ from .models import *
 
 admin.site.register(Users)
 admin.site.register(UrlCheckResults)
+admin.site.register(Review)
