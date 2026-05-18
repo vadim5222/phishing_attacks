@@ -27,9 +27,9 @@ const UrlPage = () => {
     }
 
     return (
-        <>
+        <div className='min-h-screen flex flex-col'>
         <Header/>
-        <div className='container mx-auto'>
+        <div className='container mx-auto flex-1'>
             <form className="p-4 md:p-6 lg:p-8  w-full rounded-xl" onSubmit={handleSubmit(CheckUrl)}>
                 <input className='w-1/2 mx-auto flex rounded-lg outline-none p-3 bg-slate-800 text-slate-700 mb-10' type="url" {...register('url')} />
                 <button className='bg-slate-800 w-1/6 p-2 rounded-lg flex mx-auto justify-center' type='submit'>Проверить</button>
@@ -41,7 +41,7 @@ const UrlPage = () => {
             </div>
         </div>
         <Footer/>
-        </>
+        </div>
         
     )
 }

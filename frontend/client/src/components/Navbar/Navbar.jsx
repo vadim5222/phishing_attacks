@@ -32,6 +32,7 @@ const Header = () => {
             <Link to='/'>Главная</Link>
             <Link to='/profile'>Личный кабинет</Link>
             <Link to='/urlpage'>Проверка url</Link>
+            <Link to='/reviews'>Отзывы</Link>
             <button onClick={Logout}>Выйти</button>
         </>
     )

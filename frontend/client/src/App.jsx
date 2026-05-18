@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Profile from './pages/Profile'
 import URLPage from './pages/URLPage'
+import ReviewsPage from './pages/ReviewsPage'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='/register' element={<RegisterPage/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/urlpage' element={<URLPage/>}/>
+          <Route path='/reviews' element={<ReviewsPage/>}/>
         </Routes>
     </div>
   )
