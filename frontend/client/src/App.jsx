@@ -6,6 +6,8 @@ import RegisterPage from './pages/RegisterPage'
 import Profile from './pages/Profile'
 import URLPage from './pages/URLPage'
 import ReviewsPage from './pages/ReviewsPage'
+import Admin from './pages/Admin'
+
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/urlpage' element={<URLPage/>}/>
           <Route path='/reviews' element={<ReviewsPage/>}/>
+          <Route path='/admin-panel' element={<Admin/>}/>
         </Routes>
     </div>
   )

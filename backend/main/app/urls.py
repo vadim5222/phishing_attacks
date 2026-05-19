@@ -10,7 +10,11 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('profile/<int:pk>/', views.UserUpdateView.as_view(), name='update'),
     path('check-url/', views.CheckUrlAPIView.as_view(), name='check_url'),
-    path('review/', views.ReviewCreateAPIView.as_view(), name='review')
+    path('review/', views.ReviewCreateAPIView.as_view(), name='review'),
+    path('users-admin/', views.AdminUsersAPIView.as_view(), name='users-admin'),
+    path('reviews-admin/', views.AdminReviewsAPIView.as_view(), name='reviews-admin'),
+    path('results-admin/', views.AdminResultsAPIView.as_view(), name='results-admin'),
+
 ]
 
 

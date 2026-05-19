@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth import authenticate
 from rest_framework import status
-from .models import Users, Review
-from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer, ReviewCreateSerializer
+from .models import Users, Review, UrlCheckResults
+from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer, ReviewCreateSerializer, ReviewResponseSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -118,9 +118,32 @@ class ReviewCreateAPIView(APIView):
     
     def get(self, request):
         reviews = Review.objects.all()
-        serializer = ReviewCreateSerializer(reviews, many=True)
+        serializer = ReviewResponseSerializer(reviews, many=True)
         return Response(serializer.data)
         
+
+class AdminUsersAPIView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    def get(self, request):
+        users = Users.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+class AdminReviewsAPIView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    def get(self, request):
+        reviews = Review.objects.all()
+        serializer = ReviewResponseSerializer(reviews, many=True)
+        return Response(serializer.data)
+    
+
+class AdminResultsAPIView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    def get(self, request):
+        results = UrlCheckResults.objects.all()
+        serializer = UrlCheckResponseSerializer(results, many=True)
+        return Response(serializer.data)
+
 
 
 

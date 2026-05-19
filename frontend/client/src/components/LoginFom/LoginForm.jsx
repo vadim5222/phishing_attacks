@@ -26,7 +26,7 @@ const LoginForm = () => {
                 <form className=' p-4 md:p-6 lg:p-8 bg-cyan-950 w-full rounded-xl' onSubmit={handleSubmit(onLogin)}>
                     <label for='username'>username</label>
                     <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="text" {...register('username')} />
-                    <label for='password'>password</label>
+                    <label htmlFor='password'>password</label>
                     <input className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="password" {...register('password')} />
                     <div className="flex items-center gap-6">
                         <button className='w-1/2 my-5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="submit">Войти</button>
