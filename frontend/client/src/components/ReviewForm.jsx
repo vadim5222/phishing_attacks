@@ -5,7 +5,7 @@ import AxiosRequest from './AxiosRequest'
 const ReviewForm = () => {
 
     const { register, handleSubmit } = useForm()
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState('')
 
     const createReview = async (data) => {
         try {
@@ -26,7 +26,7 @@ const ReviewForm = () => {
     useEffect(() => {
         AxiosRequest.get('accounts/profile/')
         .then(res => setUser(res.data))
-        .catch(() => setUser(null))
+        .catch(() => setUser(''))
     }, [])
 
     
@@ -38,7 +38,7 @@ const ReviewForm = () => {
             <div className='flex justify-center'>
                 <form className='p-4 md:p-6 lg:p-8 bg-cyan-950 w-3/6 rounded-xl mb-10' onSubmit={handleSubmit(createReview)}>
                 <label htmlFor="username">Ваше имя</label>
-                <input type="text" value={user?.username} onChange={(e) => setUser(e.target.value)}/>
+                <input type="text" value={user.username} onChange={e => setUser(e.target.value)} {...register('username')}/>
                     <label className='block mb-1' htmlFor="text">Отзыв</label>
                     <textarea
                         className='w-full h-52 p-4 border text-3xl border-gray-300 rounded-md focus:outline-none mb-3 focus:ring-blue-500 focus:border-blue-500' type="text"

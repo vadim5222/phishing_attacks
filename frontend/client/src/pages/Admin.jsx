@@ -57,6 +57,7 @@ const Admin = () => {
                 {viewReviews && <div>
                     {reviews.map((reviews) =>
                         <div key={reviews.id}>
+                            <p>{reviews.username}</p>
                             <p>{reviews.text}</p>
                             <p>{reviews.score}</p>
                         </div>
