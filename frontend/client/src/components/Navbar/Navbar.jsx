@@ -33,7 +33,7 @@ const Header = () => {
             <Link to='/profile'>Личный кабинет</Link>
             <Link to='/urlpage'>Проверка url</Link>
             <Link to='/reviews'>Отзывы</Link>
-            <Link to='/admin-panel'>Админка</Link>
+            {user?.is_staff && <Link to='/admin-panel'>Админ панель</Link>}
             <button onClick={Logout}>Выйти</button>
         </>
     )

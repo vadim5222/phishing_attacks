@@ -143,6 +143,7 @@ class AdminResultsAPIView(APIView):
         results = UrlCheckResults.objects.all()
         serializer = UrlCheckResponseSerializer(results, many=True)
         return Response(serializer.data)
+    
 
 
 

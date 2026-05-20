@@ -39,7 +39,7 @@ const Admin = () => {
             <div className="container mx-auto flex-1">
                 <button onClick={() => setViewUsers(!viewUsers)}>Показать пользователей</button>
                 <button onClick={() => setViewReviews(!viewReviews)} >Показать отзывы</button>
-                <button onClick={() => setViewResults(!viewResults)} >Показать отзывы</button>
+                <button onClick={() => setViewResults(!viewResults)} >Показать историю проверок </button>
 
             </div>
             <div>
@@ -48,6 +48,7 @@ const Admin = () => {
                         <div key={users.id}>
                             <p>{users.username}</p>
                             <p>{users.email}</p>
+                            <p>{users.data_joined}</p>
                         </div>
                     )}
                 </div>}
