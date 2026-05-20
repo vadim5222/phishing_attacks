@@ -18,6 +18,7 @@ class UrlCheckResults(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    username = models.CharField(max_length=255)
     text = models.TextField()
     score = models.PositiveIntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)

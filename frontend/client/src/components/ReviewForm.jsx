@@ -1,14 +1,16 @@
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { set, useForm } from 'react-hook-form'
+import { useState, useEffect } from 'react'
 import AxiosRequest from './AxiosRequest'
 
 const ReviewForm = () => {
 
     const { register, handleSubmit } = useForm()
+    const [user, setUser] = useState(null)
 
     const createReview = async (data) => {
         try {
             const formData = new FormData()
+            formData.append('username', data.username)
             formData.append('text', data.text)
             formData.append('score', data.score)
 
@@ -21,6 +23,13 @@ const ReviewForm = () => {
         }
     }
 
+    useEffect(() => {
+        AxiosRequest.get('accounts/profile/')
+        .then(res => setUser(res.data))
+        .catch(() => setUser(null))
+    }, [])
+
+    
 
 
 
@@ -28,6 +37,8 @@ const ReviewForm = () => {
         <div>
             <div className='flex justify-center'>
                 <form className='p-4 md:p-6 lg:p-8 bg-cyan-950 w-3/6 rounded-xl mb-10' onSubmit={handleSubmit(createReview)}>
+                <label htmlFor="username">Ваше имя</label>
+                <input type="text" value={user?.username} onChange={(e) => setUser(e.target.value)}/>
                     <label className='block mb-1' htmlFor="text">Отзыв</label>
                     <textarea
                         className='w-full h-52 p-4 border text-3xl border-gray-300 rounded-md focus:outline-none mb-3 focus:ring-blue-500 focus:border-blue-500' type="text"

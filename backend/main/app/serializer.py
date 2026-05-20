@@ -35,7 +35,7 @@ class UrlCheckResponseSerializer(serializers.ModelSerializer):
 class ReviewCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['text', 'score']
+        fields = ['username','text', 'score']
 
 
 class ReviewResponseSerializer(serializers.ModelSerializer):
