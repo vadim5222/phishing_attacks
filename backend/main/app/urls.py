@@ -14,7 +14,9 @@ urlpatterns = [
     path('users-admin/', views.AdminUsersAPIView.as_view(), name='users-admin'),
     path('reviews-admin/', views.AdminReviewsAPIView.as_view(), name='reviews-admin'),
     path('results-admin/', views.AdminResultsAPIView.as_view(), name='results-admin'),
-
+    path('user-delete/<int:pk>/', views.AdminUsersAPIView.as_view(), name='user-delete'),
+    path('review-delete/<int:pk>/', views.AdminReviewsAPIView.as_view(), name='review-delete'),
+    path('result-delete/<int:pk>/', views.AdminResultsAPIView.as_view(), name='result-delete'),
 ]
 
 

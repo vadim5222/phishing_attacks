@@ -14,6 +14,7 @@ const LoginForm = () => {
             }, {
                 withCredentials: true
             })
+
             navigate('/')
         } catch (e) {
             console.log(e)

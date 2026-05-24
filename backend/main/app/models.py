@@ -8,9 +8,11 @@ class Users(AbstractUser):
 
 
 class UrlCheckResults(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)
     url = models.URLField(max_length=255)
     label = models.CharField(max_length=255)
     probability = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.url

@@ -1,13 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from django.contrib.auth import authenticate
 from rest_framework import status
 from .models import Users, Review, UrlCheckResults
 from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer, ReviewCreateSerializer, ReviewResponseSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from ml.dataset.url_model import predict_url
 
 
@@ -59,8 +59,12 @@ class RegisterAPIView(APIView):
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+        user_serializer = UserSerializer(request.user)
+        reviews = Review.objects.filter(user = request.user)
+        results = UrlCheckResults.objects.filter(user = request.user)
+        reviews_serailizer = ReviewResponseSerializer(reviews, many=True)
+        results_serializer = UrlCheckResponseSerializer(results, many=True)
+        return Response({'user':user_serializer.data, 'reviews':reviews_serailizer.data, 'results':results_serializer.data})
 
 
 
@@ -71,7 +75,7 @@ class LogoutView(APIView):
         response.delete_cookie('refresh', path='/')
         return response
     
-
+# ========================== API для обновления профиля
 class UserUpdateView(APIView):
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
@@ -84,6 +88,7 @@ class UserUpdateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# ========================================== API для создания проверок на фишинг
 class CheckUrlAPIView(APIView):
     def post(self, request):
         serializer = UrlCheckRequestSerializer(data=request.data)
@@ -104,9 +109,11 @@ class CheckUrlAPIView(APIView):
         }
         response_serializer = UrlCheckResponseSerializer(data=response_data)
         response_serializer.is_valid(raise_exception=True)
-        response_serializer.save()
+        response_serializer.save(user = request.user)
         return Response(response_serializer.data)
     
+
+# =======================================API для создания и просмотров комментариев
 class ReviewCreateAPIView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
@@ -122,12 +129,25 @@ class ReviewCreateAPIView(APIView):
         return Response(serializer.data)
         
 
+
+# =========================================API для админки
 class AdminUsersAPIView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     def get(self, request):
         users = Users.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+    
+    def delete(self, request, pk):
+        try:
+            user = Users.objects.get(pk=pk)
+        except Users.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        if user:
+            user.delete()
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
 
 class AdminReviewsAPIView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -135,6 +155,15 @@ class AdminReviewsAPIView(APIView):
         reviews = Review.objects.all()
         serializer = ReviewResponseSerializer(reviews, many=True)
         return Response(serializer.data)
+    def delete(self, request, pk):
+        try:
+            review = Review.objects.get(pk=pk)
+        except Review.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        if review:
+            review.delete()
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 
 class AdminResultsAPIView(APIView):
@@ -143,6 +172,16 @@ class AdminResultsAPIView(APIView):
         results = UrlCheckResults.objects.all()
         serializer = UrlCheckResponseSerializer(results, many=True)
         return Response(serializer.data)
+    def delete(self, request, pk):
+        try:
+            result = UrlCheckResults.objects.get(pk=pk)
+        except UrlCheckResults.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        if result:
+            result.delete()
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
     
 
 

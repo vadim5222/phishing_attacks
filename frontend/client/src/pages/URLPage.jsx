@@ -38,6 +38,7 @@ const UrlPage = () => {
                 <p>URL адрес - {result?.url}</p>
                 <p>Результат - {result?.label}</p>
                 <p>Вероятность фишинговой атаки - {result?.probability}</p>
+                <p>Время проверки - {result?.created_at}</p>
             </div>
         </div>
         <Footer/>
