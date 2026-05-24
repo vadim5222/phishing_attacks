@@ -9,6 +9,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from ml.dataset.url_model import predict_url
+from .mixins import ManageFavorite
+from rest_framework import viewsets
 
 
 class LoginAPIView(APIView):
