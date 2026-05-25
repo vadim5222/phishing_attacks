@@ -27,6 +27,7 @@ class UrlCheckRequestSerializer(serializers.Serializer):
 
     
 class UrlCheckResponseSerializer(serializers.ModelSerializer):
+    is_favorite = serializers.BooleanField(read_only = True)
     class Meta:
         model = UrlCheckResults
         fields = '__all__'

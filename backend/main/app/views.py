@@ -1,16 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth import authenticate
 from rest_framework import status
 from .models import Users, Review, UrlCheckResults
 from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer, ReviewCreateSerializer, ReviewResponseSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.parsers import MultiPartParser, FormParser
 from ml.dataset.url_model import predict_url
 from .mixins import ManageFavorite
 from rest_framework import viewsets
+
 
 
 class LoginAPIView(APIView):
@@ -185,6 +186,14 @@ class AdminResultsAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     
+# ==========================ViewSet ДЛЯ ИЗБРАННОГО
+class UrlResultsViewSet(viewsets.ModelViewSet, ManageFavorite):
+    serializer_class = UrlCheckRequestSerializer
+
+    def get_queryset(self):
+        queryset = UrlCheckResults.objects.all()
+        queryset = self.annotate_qs_is_favorite_field(queryset)
+        return queryset 
 
 
 

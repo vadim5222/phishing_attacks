@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 
 
+
 class Users(AbstractUser):
     image = models.ImageField(upload_to='users/', verbose_name='Аватар', blank=True, null=True)
 
@@ -41,13 +42,16 @@ class Favorite(models.Model):
     class Meta:
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранные'
-        ordering=['-id']
+        ordering = ['-id']
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'object_id', 'content_type'],
-                name='unique_user_content_type_object_id'
+                fields = ['user', 'object_id', 'content_type'],
+                name = 'unique_user_content_type_object_id'
             )
         ]
+    
+
+
     
 
     
