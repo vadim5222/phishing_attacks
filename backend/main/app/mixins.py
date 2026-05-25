@@ -32,12 +32,6 @@ class ManageFavorite:
                 status=status.HTTP_200_OK
             )
         
-    @action(
-            detail=False,
-            methods=['get'],
-            url_path='favorites',
-            permission_classes = [IsAuthenticated,]
-    )
     def annotate_qs_is_favorite_field(self, queryset):
         if self.request.user.is_authenticated:
             is_favorite_subquery = Favorite.objects.filter(
@@ -49,6 +43,12 @@ class ManageFavorite:
         return queryset
     
 
+    @action(
+            detail=False,
+            methods=['get'],
+            url_path='favorites',
+            permission_classes = [IsAuthenticated,]
+    )
     def favorites(self, request):
         queryset = self.get_queryset().filter(is_favorite = True)
         serializer_class = self.get_serializer_class()

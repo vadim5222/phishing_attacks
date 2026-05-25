@@ -57,7 +57,7 @@ const Main = () => {
 
             <section className="mb-20">
                 <h1 className="text-center text-white text-3xl mb-8">Вы можете связаться с нами удобным для Вас способом</h1>
-                <div className='flex  justify-between bg-cyan-950 p-10 rounded-xl items-baseline'>
+                <div className='flex  justify-between bg-cyan-950/45 p-10 rounded-xl items-baseline'>
                     <div>
                         <form className="p-4 md:p-6 lg:p-8 w-full rounded-xl" onSubmit={handleSubmit(onSubmit)}>
                             <input className=' w-full mb-4 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' placeholder='Как к вам обращаться?' type="text" {...register('username')} />

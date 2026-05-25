@@ -26,14 +26,13 @@ const Header = () => {
             console.log(e)
         }
     }
-
     const appRouter = (
         <>
             <Link to='/'>Главная</Link>
             <Link to='/profile'>Личный кабинет</Link>
             <Link to='/urlpage'>Проверка url</Link>
             <Link to='/reviews'>Отзывы</Link>
-            {user?.is_staff && <Link to='/admin-panel'>Админ панель</Link>}
+            {user?.user.is_staff && <Link to='/admin-panel'>Админ панель</Link>}
             <button onClick={Logout}>Выйти</button>
         </>
     )
@@ -47,9 +46,9 @@ const Header = () => {
     return (
 
         <>
-            <header className="bg-cyan-950 rounded-b-lg mb-8 backdrop-invert backdrop-opacity-100">
-                <div className="p-8">
-                    <div className="w-1/2 flex justify-center">
+            <header className="bg-cyan-950/45 rounded-b-sm mb-8">
+                <div className="container mx-auto p-8">
+                    <div>
                         {user ?
                             <div className="text-xl flex gap-7 ">
                                 {appRouter}
