@@ -15,7 +15,7 @@ const Main = () => {
                     <div>
                         <h1 className="text-white text-3xl  mb-5">Передовая кибербезопасность для любой компании </h1>
                         <p className="text-gray-300 text-2xl mb-4">Защитите ваш бизнес от всех видов киберугроз с помощью решений мирового класса. </p>
-                        <button className="px-20 py-3 bg-cyan-800 rounded-xl text-white">Подробнее</button>
+                        <button className="px-20 py-3 bg-cyan-800/45 rounded-xl text-white">Подробнее</button>
                     </div>
                     <img src='/hero_1.png' className="w-full" />
                 </div>
@@ -40,15 +40,15 @@ const Main = () => {
                 <h1 className="text-center text-white text-3xl mb-8" >Наши продукты направлены на вашу безопасность. </h1>
                 <p className="text-center text-white font-thin text-3xl w-5/6 flex mx-auto mb-12">Мы придерживаемся в своей работе простого принципа: детектировать и блокировать любую вредоносную атаку.</p>
                 <div className="flex items-center gap-10">
-                    <div className="w-full p-8 bg-cyan-950 rounded-xl">
+                    <div className="w-full p-8 bg-cyan-950/45 rounded-xl">
                         <img src="/Icon_01.png" className="flex mx-auto" />
                         <p className="text-center">Анонимность</p>
                     </div>
-                    <div className="w-full p-8 bg-cyan-950 rounded-xl">
+                    <div className="w-full p-8 bg-cyan-950/45 rounded-xl">
                         <img src="/Icon_check.png" className="flex mx-auto" />
                         <p className="text-center">Проверка на наличие угроз</p>
                     </div>
-                    <div className="w-full p-8 bg-cyan-950 rounded-xl">
+                    <div className="w-full p-8 bg-cyan-950/45 rounded-xl">
                         <img src="/Protect_icon.png" className="flex mx-auto" />
                         <p className="text-center">Обнаружение и предотвращение атак</p>
                     </div>

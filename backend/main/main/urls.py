@@ -13,7 +13,7 @@ router.register(r'urls', UrlResultsViewSet, basename='urls')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('app.urls')),
-    path('api/', include(router.urls))
+    path('app/', include(router.urls))
 ]
 
 if settings.DEBUG:

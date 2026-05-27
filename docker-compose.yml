@@ -1,0 +1,58 @@
+networks:
+  dev:
+
+
+services:
+
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: kursovaya
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: kuznetsov2007
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dev
+
+
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - dev
+      
+  backend:
+    build:
+      context: ./backend
+    
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: kursovaya
+      DB_USER: postgres
+      DB_PASSWORD: kuznetsov2007
+
+    networks:
+      - dev
+
+  frontend:
+    build:
+      context: ./frontend/client
+    networks:
+      - dev
+volumes:
+  pgdata:

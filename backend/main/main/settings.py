@@ -153,7 +153,11 @@ SIMPLE_JWT = {
     "ALGORITHM": "HS512",
 }
 
-
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'backend'
+]
 
 
 if DEBUG:
@@ -162,6 +166,7 @@ if DEBUG:
 else:
     CORS_ALLOWED_ORIGINS = [
         'http://localhost:8000/',
+        'http://localhost:3000/',
         'http://127.0.0.1:8000/'
     ]
 

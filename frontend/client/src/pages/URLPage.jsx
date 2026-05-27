@@ -29,7 +29,7 @@ const UrlPage = () => {
 
     const addFavorite = async (resultId) => {
         try {
-            const response = await AxiosRequest.get(`api/urls/${resultId}/favorite/`)
+            const response = await AxiosRequest.get(`app/urls/${resultId}/favorite/`)
             console.log(response)
         } catch (e) {
             console.log(e)

@@ -1,3 +1,4 @@
+import math
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -108,7 +109,7 @@ class CheckUrlAPIView(APIView):
         response_data = {
             'url': result['raw_url'],
             'label': 'phishing' if result['label'] == 1 else 'safe',
-            'probability': result['probability'],
+            'probability': round(result['probability'], 4),
         }
         response_serializer = UrlCheckResponseSerializer(data=response_data)
         response_serializer.is_valid(raise_exception=True)
