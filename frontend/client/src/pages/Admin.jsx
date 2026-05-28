@@ -15,19 +15,21 @@ const Admin = () => {
 
 
     useEffect(() => {
-        AxiosRequest.get('accounts/users-admin')
-            .then(res => setUsers(res.data))
+        AxiosRequest.get('accounts/users-admin/')
+            .then(res => {
+                setUsers(res.data)
+            })
             .catch(() => setUsers([]))
     }, [])
 
     useEffect(() => {
-        AxiosRequest.get('accounts/reviews-admin')
+        AxiosRequest.get('accounts/reviews-admin/')
             .then(res => setReviews(res.data))
             .catch(() => setReviews([]))
     }, [])
 
     useEffect(() => {
-        AxiosRequest.get('accounts/results-admin')
+        AxiosRequest.get('accounts/results-admin/')
             .then(res => setResults(res.data))
             .catch(() => setResults([]))
     }, [])
@@ -71,41 +73,41 @@ const Admin = () => {
 
                 <div>
                     {viewUsers && <div className="flex flex-wrap gap-8">
-                        {users.map((users) =>
-                            <div className="bg-slate-800 px-9 py-2 rounded-sm" key={users.id}>
+                        {users?.map(user =>
+                            <div className="bg-slate-800 px-9 py-2 rounded-sm" key={user.id}>
                                 <div className="mb-2">
-                                    <p>{users.username}</p>
-                                    <p>{users.email}</p>
+                                    <p>{user.username}</p>
+                                    <p>{user.email}</p>
                                 </div>
-                                <button onClick={() => deleteUser(users.id)}  className="px-5 py-1 rounded-sm bg-slate-900">Удалить</button>
+                                <button onClick={() => deleteUser(user.id)}  className="px-5 py-1 rounded-sm bg-slate-900">Удалить</button>
                             </div>
                         )}
                     </div>}
                 </div>
                 <div>
                     {viewReviews && <div className="flex flex-wrap gap-8">
-                        {reviews.map((reviews) =>
-                            <div className="bg-slate-800 px-9 py-2 rounded-sm" key={reviews.id}>
+                        {reviews?.map(review =>
+                            <div className="bg-slate-800 px-9 py-2 rounded-sm" key={review.id}>
                                 <div className="mb-2">
-                                    <p>{reviews.username}</p>
-                                    <p>{reviews.text}</p>
-                                    <p>{reviews.score}</p>
+                                    <p>{review.username}</p>
+                                    <p>{review.text}</p>
+                                    <p>{review.score}</p>
                                 </div>
-                                <button onClick={() => deleteReview(reviews.id)} className="px-5 py-1 rounded-sm bg-slate-900">Удалить</button>
+                                <button onClick={() => deleteReview(review.id)} className="px-5 py-1 rounded-sm bg-slate-900">Удалить</button>
                             </div>
                         )}
                     </div>}
                 </div>
                 <div>
                     {viewResults && <div className="flex flex-wrap gap-8">
-                        {results.map((results) =>
-                            <div className="bg-slate-800 px-9 py-2 rounded-sm" key={results.id}>
+                        {results?.map(result =>
+                            <div className="bg-slate-800 px-9 py-2 rounded-sm" key={result.id}>
                                 <div className="mb-2">
-                                    <p>{results.url}</p>
-                                    <p>{results.label}</p>
-                                    <p>{results.probability}</p>
+                                    <p>{result.url}</p>
+                                    <p>{result.label}</p>
+                                    <p>{result.probability}</p>
                                 </div>
-                                <button onClick={() => deleteResult(results.id)} className="px-5 py-1 rounded-sm bg-slate-900">Удалить</button>
+                                <button onClick={() => deleteResult(result.id)} className="px-5 py-1 rounded-sm bg-slate-900">Удалить</button>
                             </div>
                         )}
                     </div>}
