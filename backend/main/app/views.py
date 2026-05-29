@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth import authenticate
 from rest_framework import status
-from .models import Users, Review, UrlCheckResults
+from .models import Users, Review, UrlCheckResults, Favorite
 from .serializer import UserSerializer, ProfileSerializer,  UrlCheckRequestSerializer, UrlCheckResponseSerializer, ReviewCreateSerializer, ReviewResponseSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
@@ -186,13 +186,24 @@ class AdminResultsAPIView(APIView):
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
+class FavoriteListAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        favorites = Favorite.objects.filter(user=request.user)
+        url_ids = favorites.values_list('object_id', flat=True)
+        urls = UrlCheckResults.objects.filter(id__in=url_ids)
+        serializer = UrlCheckResponseSerializer(urls, many=True)
+
+        return Response(serializer.data)
+    
     
 # ==========================ViewSet ДЛЯ ИЗБРАННОГО
 class UrlResultsViewSet(viewsets.ModelViewSet, ManageFavorite):
     serializer_class = UrlCheckRequestSerializer
 
     def get_queryset(self):
-        queryset = UrlCheckResults.objects.all()
+        queryset = UrlCheckResults.objects.filter(user=self.request.user)
         queryset = self.annotate_qs_is_favorite_field(queryset)
         return queryset 
 

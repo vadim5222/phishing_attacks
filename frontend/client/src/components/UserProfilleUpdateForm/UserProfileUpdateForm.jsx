@@ -27,7 +27,7 @@ const UserProfileUpdateForm = ({ userId }) => {
     return (
         <>
             <div className="flex items-start justify-center">
-                <form className="p-4 md:p-6 lg:p-8 bg-cyan-950 w-full rounded-xl" onSubmit={handleSubmit(onEdit)}>
+                <form className="p-4 md:p-6 lg:p-8 bg-cyan-950/45 w-full rounded-xl" onSubmit={handleSubmit(onEdit)}>
                     <div>
                         <label className='block text-sm font-medium text-blue-300-700 mb-1' htmlFor="username">username</label>
                         <input className='w-full mb-4 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500' type="text" {...register('username')} />
