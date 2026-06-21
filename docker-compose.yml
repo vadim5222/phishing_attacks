@@ -1,7 +1,6 @@
 networks:
   dev:
 
-
 services:
 
   db:
@@ -18,33 +17,22 @@ services:
     networks:
       - dev
 
-
-
-  nginx:
-    image: nginx:stable-alpine
-    ports:
-      - "80:80"
-    
-    volumes:
-      - './nginx.conf:/etc/nginx/nginx.conf'
-
-    depends_on:
-      - backend
-      - frontend
-    networks:
-      - dev
-      
   backend:
     build:
       context: ./backend
-    
+
     depends_on:
       - db
+
     environment:
       DB_HOST: db
       DB_NAME: kursovaya
       DB_USER: postgres
       DB_PASSWORD: kuznetsov2007
+
+    volumes:
+      - ./backend:/app
+      - media_data:/app/media/users/
 
     networks:
       - dev
@@ -54,5 +42,22 @@ services:
       context: ./frontend/client
     networks:
       - dev
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - media_data:/app/media/users/
+
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - dev
+
 volumes:
   pgdata:
+  media_data:

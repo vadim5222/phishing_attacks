@@ -2,6 +2,7 @@ import Footer from "../components/Footer"
 import Header from "../components/Header"
 import { useState, useEffect } from "react"
 import AxiosRequest from "../components/AxiosRequest"
+import { observer } from 'mobx-react-lite'
 
 const Admin = () => {
 
@@ -36,8 +37,10 @@ const Admin = () => {
 
     const deleteUser = async (userId) => {
         try {
-            const response = await AxiosRequest.delete(`accounts/user-delete/${userId}/`)
-            console.log(response)
+            await AxiosRequest.delete(`accounts/user-delete/${userId}/`)
+
+            setUsers(prev => prev.filter(user => user.id !== userId))
+
         } catch (e) {
             console.log(e)
         }
@@ -45,17 +48,20 @@ const Admin = () => {
 
     const deleteReview = async (reviewId) => {
         try {
-            const response = await AxiosRequest.delete(`accounts/review-delete/${reviewId}/`)
-            console.log(response)
+            await AxiosRequest.delete(`accounts/review-delete/${reviewId}/`)
+
+            setReviews(prev => prev.filter(review => review.id !== reviewId))
+
         } catch (e) {
             console.log(e)
         }
     }
-
     const deleteResult = async (resultId) => {
         try {
-            const response = await AxiosRequest.delete(`accounts/result-delete/${resultId}/`)
-            console.log(response)
+            await AxiosRequest.delete(`accounts/result-delete/${resultId}/`)
+
+            setResults(prev => prev.filter(result => result.id !== resultId))
+
         } catch (e) {
             console.log(e)
         }
@@ -165,7 +171,7 @@ const Admin = () => {
                                         <td className="border border-slate-700 px-6 py-4">
                                             <button
                                                 onClick={() => deleteReview(review.id)}
-                                            
+
                                             >
                                                 Удалить
                                             </button>
@@ -238,7 +244,7 @@ const Admin = () => {
                                         <td className="border border-slate-700 px-6 py-4">
                                             <button
                                                 onClick={() => deleteResult(result.id)}
-                                               
+
                                             >
                                                 Удалить
                                             </button>
@@ -255,4 +261,4 @@ const Admin = () => {
     )
 }
 
-export default Admin
+export default observer(Admin)

@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'image']
 
 
 class UrlCheckRequestSerializer(serializers.Serializer):
